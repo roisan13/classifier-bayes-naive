@@ -1,14 +1,15 @@
 import nltk
 
+nltk.download('punkt')
+nltk.download('punkt_tab')
+nltk.download('stopwords')
+nltk.download('wordnet')
+
 from accuracy_testing import evaluate_on_test_set, calculate_accuracy, calculate_exact_match_accuracy
 from predicting import predict_movie_genres
 from probabilities import calculate_apriori_prob, calculate_cond_prob
 from processing import init_dataframe
 
-nltk.download('punkt')
-nltk.download('punkt_tab')
-nltk.download('stopwords')
-nltk.download('wordnet')
 
 
 train_df, test_df = init_dataframe()
