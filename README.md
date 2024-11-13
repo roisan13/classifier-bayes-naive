@@ -1,4 +1,4 @@
-# **Documentație Proiect: Model Bayes**
+# Documentație Proiect: Model Bayes
 
 
 # **Componență Echipă**
