@@ -11,7 +11,7 @@
 
 Proiectul nostru este un Clasificator Bayes care utilizează rezumatele filmelor (sinopsisurile) pentru a prezice genurile filmelor. Modelul analizează cuvintele din sinopsisuri, calculează probabilitățile pentru fiecare gen și folosește aceste informații pentru a clasifica filmele în funcție de genurile lor, cum ar fi dramă, aventură sau comedie.
 
-# **Instalarea librăriilor necesare**
+## **Instalarea librăriilor necesare**
 
 Pentru ca aplicația să funcționeze este nevoie de câteva librării externe. Astfel, rulăm următoarele comenzi:
 
@@ -23,7 +23,7 @@ pip install requests
 pip install scikit-learn
 ```
 
-# **Instrucțiuni de utilizare**
+## **Instrucțiuni de utilizare**
 
 Pentru a rula programul rulăm următoarea comanda în folderul proiectului:
 
@@ -33,7 +33,7 @@ python ./main.py
 
 Programul afișează acuratețea modelului (conform setului de date destinate testing-ului), urmând ca user-ul sa aibă posibilitatea de a testa modelul folosind rezumatul oricărui film dorește. Pentru aceasta, trebuie introdus numele filmului dorit în engleză. Programul va afișa sinopsis-ul filmului găsit (prin baza de date OMDb) și genurile atribuite acestuia, urmate de genurile prezise de model.
 
-# **Exemplu de utilizare cu filmul The Godfather**
+## **Exemplu de utilizare cu filmul The Godfather**
 
 ```bash
 Introduceti numele unui film: **The Godfather**
@@ -56,7 +56,7 @@ n
 
 În acest exemplu, programul a identificat corect genurile crime și drama, însă a sugerat și comedy, care nu este un gen asociat acestui film.
 
-# **Explicarea Modelului Bayes pentru Clasificarea Genurilor Filmelor**
+## **Explicarea Modelului Bayes pentru Clasificarea Genurilor Filmelor**
 
 Modelul prezentat este un clasificator Bayes, un algoritm de clasificare probabilistic care este folosit aici pentru a prezice genul unui film pe baza sinopsisului său. Modelul Bayes este un model popular în procesarea limbajului natural (NLP) datorită simplității și eficienței sale, chiar și în cazul unor seturi de date mari. În continuare, vom detalia fiecare componentă a acestui model și vom explica modul în care acesta funcționează din punct de vedere matematic pentru a determina genul probabil al unui film.
 
@@ -72,7 +72,7 @@ $$
 P(gen) = (nr\ filme\ din\ acel\ gen) / (nr\ total\ filme\ din\ setul\ de\ antrenament)
 $$
 
-## **2. Probabilitățile condiționate (P(cuvânt | gen))**
+### **2. Probabilitățile condiționate (P(cuvânt | gen))**
 
 Pentru a evalua probabilitatea ca un film să aparțină unui anumit gen, modelul folosește probabilitățile condiționate P(cuvânt | gen). Acestea exprimă probabilitatea ca un cuvânt specific să apară într-un sinopsis, dat fiind că filmul este dintr-un anumit gen. Modelul folosește aceste probabilități condiționate pentru a lua în considerare frecvențele diferitelor cuvinte în genurile distincte.
 
@@ -86,7 +86,7 @@ Adăugarea '+1' este necesară pentru a evita o probabilitate de zero în cazul 
 
 Fără **Laplace smoothing**, dacă un cuvânt din rezumatul unui film nu apare în setul de antrenament pentru un gen, probabilitatea sa pentru acel gen va fi calculată drept zero. De exemplu, dacă un film cu cuvântul „spaceship” nu se încadrează în „dramă” (unde cuvântul nu apare), modelul va calcula o probabilitate zero pentru „dramă”. Acest lucru înseamnă că genul „dramă” va fi exclus automat, chiar dacă alte indicii din sinopsis sugerează că ar putea fi relevant. Cu Laplace smoothing, atribuim o probabilitate mică tuturor cuvintelor, chiar și celor noi, evitând astfel această problemă și permițând modelului să considere toate genurile posibile.
 
-## **3. Scorul de probabilitate pentru fiecare gen (log P(gen | sinopsis))**
+### **3. Scorul de probabilitate pentru fiecare gen (log P(gen | sinopsis))**
 
 Pentru a prezice genul unui film, algoritmul calculează scorul de probabilitate pentru fiecare gen. Acest scor este produsul dintre probabilitatea a priori a genului P(gen) și probabilitățile condiționate pentru fiecare cuvânt din sinopsisul dat. În practică, se utilizează logaritmi pentru a transforma produsul probabilităților într-o sumă de logaritmi, ceea ce simplifică calculul și previne probleme de underflow (valori prea mici pentru a fi stocate în mod precis în memori~~e~~a calculatorului).
 
@@ -100,11 +100,11 @@ Astfel, fiecare gen primește un scor logaritmic, iar genurile cu cele mai mari 
 
 Fără a calcula probabilitățile în mod logaritmic întâmpinăm o problemă legată de scăderea preciziei numerice atunci când multiplicăm probabilitățile, mai ales când avem mai multe cuvinte (sau caracteristici) într-un set de date foarte mare. Acest lucru se datorează faptului că probabilitățile vor fi calculate drept numere foarte mici, iar înmulțirea lor poate duce la valori și mai mici, care sunt aproape imposibil de gestionat numeric, iar în unele cazuri pot duce la eroare de subnivel (underflow), adică pierderea de precizie. Pe scurt, folosirea de **logarithmic score** este o modalitate de floating point error mitigation.
 
-## **4. Predicția**
+### **4. Predicția**
 
 După calcularea scorurilor logaritmice pentru fiecare gen, modelul selectează genurile cu cele mai mari scoruri ca predicții pentru sinopsisul respectiv. Aceasta se realizează prin sortarea scorurilor și alegerea genurilor de top. În acest fel, modelul poate prezice genurile probabile pentru un sinopsis dat, iar utilizatorul poate ajusta numărul de genuri pe care modelul le va returna, pe baza parametrului top_n (ex. top 3 genuri).
 
-## **5. Evaluarea modelului**
+### **5. Evaluarea modelului**
 
 Pentru a determina performanța modelului, se utilizează două metrici de acuratețe, care ajută la măsurarea cât de bine modelul poate prezice genurile filmelor noi. Aceste metrici sunt:
 
@@ -115,11 +115,11 @@ Aceste calcule ne permit să evaluăm cât de bine poate modelul să prezică ge
 
 În general, la acuratețea normală rata de succes e în jur de 90%, iar la cea exactă în jur de 15%
 
-# **Structura Codului**
+## **Structura Codului**
 
 Structura acestui cod este bine organizată în funcții specifice, fiecare având un rol clar în implementarea unui clasificator Bayes care prezice genul filmelor pe baza sinopsisurilor. Codul începe cu descărcarea resurselor din nltk, precum „stop words” și instrumentele de ,,lemmatizare’’, necesare pentru procesarea textului.
 
-## **Funcții importante pentru calcul**
+### **Funcții importante pentru calcul**
 
 Setul de date cu filme este încărcat și preprocesat de funcția **`init_dataframe`**, care folosește un fișier CSV cu titluri de filme, genuri și sinopsisuri. Funcția filtrează coloanele relevante și aplică procesarea textului pe genuri și sinopsisuri, asigurând o formatare standardizată. După aceasta, setul de date este împărțit într-un set de antrenament și unul de testare, cu o proporție de 80-20%, pentru a permite evaluarea ulterioară a modelului.
 
@@ -139,7 +139,7 @@ Funcția **`predict_movie_genres`** permite utilizatorului să introducă un tit
 
 În final, codul include un ciclu while care permite utilizatorului să introducă titluri de filme până când alege să oprească programul. În cadrul fiecărei iterații, se apelează predict_movie_genres pentru a afișa genurile prezise, ceea ce face ca programul să fie interactiv și să ofere feedback instantaneu.
 
-# **Bibliografie**
+## **Bibliografie**
 
 [https://en.wikipedia.org/wiki/Scoring_rule](https://en.wikipedia.org/wiki/Scoring%5C%5C_rule)
 
