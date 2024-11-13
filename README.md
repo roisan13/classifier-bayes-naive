@@ -1,13 +1,13 @@
-# Documentație Proiect: Model Bayes
+# **Documentație Proiect: Model Bayes**
 
 
-# **Componență Echipă**
+## **Componență Echipă**
 
 - Cotigă David-Gabriel
 - Dănăilă Mihai-Teodor
 - Roșianu Radu-Daniel
 
-# **Descriere succintă**
+## **Descriere succintă**
 
 Proiectul nostru este un Clasificator Bayes care utilizează rezumatele filmelor (sinopsisurile) pentru a prezice genurile filmelor. Modelul analizează cuvintele din sinopsisuri, calculează probabilitățile pentru fiecare gen și folosește aceste informații pentru a clasifica filmele în funcție de genurile lor, cum ar fi dramă, aventură sau comedie.
 
