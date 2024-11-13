@@ -93,7 +93,7 @@ Pentru a prezice genul unui film, algoritmul calculează scorul de probabilitate
 Formula pentru calcularea scorului este:
 
 $$
-Scor(gen) = log(P(gen)) + \sum(log(P(cuvânt | gen))) pentru fiecare cuvânt în sinopsis
+Scor(gen) = log(P(gen)) + \sum(log(P(cuvânt | gen))) pentru\ fiecare\ cuvânt\ în\ sinopsis
 $$
 
 Astfel, fiecare gen primește un scor logaritmic, iar genurile cu cele mai mari scoruri sunt considerate cele mai probabile pentru sinopsisul dat. Logaritmul schimbă produsele în sume, ceea ce ajută la evitarea pierderilor numerice și face modelul mai eficient în procesarea datelor textuale complexe.
