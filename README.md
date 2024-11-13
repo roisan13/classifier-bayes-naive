@@ -62,7 +62,7 @@ Modelul prezentat este un clasificator Bayes, un algoritm de clasificare probabi
 
 Setul de date utilizat atat in testarea, cat si in antrenamentul modelului a fost obținut de pe platforma Kaggle (destinata dataset-urilor pentru machine learning), si contine date (inclusiv sinopsis-uri) despre primele 1000 cele mai bine cotate filme de pe IMDb.
 
-## **1. Probabilitățile a priori (P(gen))**
+### **1. Probabilitățile a priori (P(gen))**
 
 Modelul începe prin calcularea probabilităților a priori pentru fiecare gen de film, adică șansele ca un film să aparțină unui anumit gen, independent de sinopsis. Aceste probabilități sunt calculate pe baza proporției filmelor din setul de date de antrenament care sunt asociate fiecărui gen. De exemplu, dacă 20% dintre filme sunt de acțiune, atunci $P(acțiune) = 0,2.$
 
